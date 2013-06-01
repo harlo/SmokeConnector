@@ -8,6 +8,7 @@ Ext.define('Canary.view.RoomNavigation', {
 				xtype: 'label',
 				html: '<h1>Home</h1>'
 			},
+			/*
 			{
 				xtype: 'picker',
 				doneButton: false,
@@ -19,6 +20,7 @@ Ext.define('Canary.view.RoomNavigation', {
 					]
 				]
 			}
+			*/
 		]
 	}
 });
