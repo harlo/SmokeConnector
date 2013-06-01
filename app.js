@@ -38,10 +38,12 @@ Ext.application({
     	'Main'
     ],
     models: [
-    	'Visualization'
+    	'Visualization',
+    	'MainNavigation'
     ],
     stores: [
-    	'Visualizations'
+    	'Visualizations',
+    	'MainNavigation'
     ],
     
 

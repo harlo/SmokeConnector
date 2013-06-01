@@ -4,7 +4,7 @@ Ext.define('Canary.view.Canary', {
 	fullscreen: true,
 	requires: [
 		'Canary.view.AirQuality',
-		'Canary.view.Monoxide',
+		'Canary.view.Monoxide'
 	],
 	
 	config: {

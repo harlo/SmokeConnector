@@ -4,6 +4,7 @@ Ext.define('Canary.controller.Main', {
     config: {
         refs: {
             canaryMain: 'canaryframe',
+            nav: 'main_navigation',
             
             airQualityVisualize: 'airquality_vizualize',            
             monoxideVisualize: 'monoxide_visualize',
@@ -31,6 +32,9 @@ Ext.define('Canary.controller.Main', {
             	activeitemchange: 'setVisualizationType',
             	activate: 'initTabWithFirstItem'
             },
+            'main_navigation': {
+            	leafitemtap: 'showNavigationLeaf'
+            }
             
         }
     },
@@ -38,6 +42,12 @@ Ext.define('Canary.controller.Main', {
     //called when the Application is launched, remove if not needed
     launch: function(app) {
         
+    },
+    
+    showNavigationLeaf: function(nestedList, list, index, target, record) {
+    	console.info(record);
+    	var detailCard = nestedList.getDetailCard();
+    	detailCard.setHtml(record.get('label') + " Page");
     },
     
     goToAirQualityMain: function(button, e) {

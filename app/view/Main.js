@@ -3,7 +3,7 @@ Ext.define('Canary.view.Main', {
     xtype: 'main',
     requires: [
 		'Canary.view.Canary',
-		'Ext.ux.slidenavigation.View'
+		'Canary.view.navigation.MainNavigation'
 	],
 	
 	scrollable: true,
@@ -19,6 +19,7 @@ Ext.define('Canary.view.Main', {
 			{
 				iconCls: 'user',
 				//xtype: 'slidenavigationview'	// profile
+				xtype: 'main_navigation'
 				
 			},
 			{ xtype: 'canaryframe' },	// main view
