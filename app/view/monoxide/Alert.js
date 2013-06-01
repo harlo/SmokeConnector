@@ -1,6 +1,9 @@
 Ext.define('Canary.view.monoxide.Alert', {
 	extend: 'Ext.Panel',
 	xtype: 'monoxide_alert',
+	require: [
+		'Ext.Label'
+	],
 	
 	config: {
 		items: [

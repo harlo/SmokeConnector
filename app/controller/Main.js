@@ -3,12 +3,14 @@ Ext.define('Canary.controller.Main', {
     
     config: {
         refs: {
+        	main: 'main',
             canaryMain: 'canaryframe',
             nav: 'main_navigation',
             
             airQualityVisualize: 'airquality_vizualize',            
             monoxideVisualize: 'monoxide_visualize',
             
+            chatterIndicator: 'alertservice_frame'
         },
         control: {
             'button[action=toAirQualityMain]': {
@@ -41,7 +43,7 @@ Ext.define('Canary.controller.Main', {
     
     //called when the Application is launched, remove if not needed
     launch: function(app) {
-        
+        this.getMain().setActiveItem(1);
     },
     
     showNavigationLeaf: function(nestedList, list, index, target, record) {
@@ -80,5 +82,47 @@ Ext.define('Canary.controller.Main', {
 				});
 			}
     	}
+    },
+    
+    initAlertSession: function(alertObject) {
+    	console.info(alertObject);
+    	this.getMain().setActiveItem(2);
+    },
+    receiveChatter: function(chatterObject) {
+    	console.info(chatterObject);
+    	
+    	numChatter++;
+    	this.getChatterIndicator().updateChatNum();
+    },
+    addContact: function(contactObject) {
+    	console.info(contactObject);
+    	
+    	/*
+    	{
+				name: 'name',
+				type: 'string'
+			},
+			{
+				name: 'avi',
+				type: 'string'
+			},
+			{
+				name: 'phone_number',
+				type: 'string'
+			},
+			{
+				name: 'zip',
+				type: 'string'
+			}
+			*/
+		var responderStore = Ext.getStore('responderStore_id');
+		// if num is not in responder store...
+		responderStore.add({
+    		phone_number: contactObject.number,
+    		zip: contactObject.zip
+    	});
+    	console.info(responderStore.getCount());
+    	console.info(responderStore.getData());
+    	
     }
 });

@@ -19,7 +19,7 @@ Ext.define('Canary.view.visualize.AirQuality', {
 			),
 			data: opts
 		});
-		
+		/*
 		var vizMap = Ext.create('Ext.Map', {
 			useCurrentLocation: true,
 			config: {
@@ -32,9 +32,9 @@ Ext.define('Canary.view.visualize.AirQuality', {
 				}
 			}
 		});
+		*/
 		
-		
-		this.add([vizPanel, vizMap]);
+		this.add([vizPanel]);
 	}
 	
 });

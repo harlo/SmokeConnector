@@ -14,6 +14,51 @@
 //@require @packageOverrides
 
 //<debug>
+
+// STUFF FOR SOCKET CONNECTIONS
+var socket = io.connect('http://smokeconnector.nodejitsu.com:80');
+socket.on('connect', function() {
+	console.info('AYO TECHNOLOGY');
+});
+
+socket.on('testSock', function(data) {
+	//mCtrl.receiveChatter(data);
+	// is this always being received on testSock? if so, add contact
+	mCtrl.addContact(data);
+});
+
+socket.on('newContact', function(data) {
+	mCtrl.addContact(data);
+});
+
+socket.on('newEvent', function(data) {
+	mCtrl.receiveChatter(data);
+	if(data.status == "softAlert") {
+		if(currentAlertSession == null) {
+			currentAlertSession = new AlertSession();
+			mCtrl.initAlertSession(data);
+		} else {
+			console.info("PLS EXPUNGE CURRENT ALERT TO RESET");
+		}
+	} else if(data.status == "hardAlert") {
+		// show responders as being called
+	}
+});
+
+var AlertSession = function() {
+	var type = null;
+	var duration = 0;
+	
+	this.init = function(type) {
+		this.duration = 0;
+		this.type = type;
+	};
+};
+
+var mCtrl = null;
+var currentAlertSession = null;
+var numChatter = 0;
+
 Ext.Loader.setConfig({ enabled: true });
 Ext.Loader.setPath({
     'Ext': 'touch/src',
@@ -32,21 +77,23 @@ Ext.application({
     views: [
         'Main', 'Wizard', 'Login', 'Canary',
         'AirQuality', 'Monoxide', 'Battery',
-        'visualize.AirQuality', 'visualize.Monoxide'
+        'visualize.AirQuality', 'visualize.Monoxide',
+        'AlertService', 'AlertChat', 'battery.Alert', 'fire.Alert', 'monoxide.Alert'
     ],
     controllers: [
     	'Main'
     ],
     models: [
     	'Visualization',
-    	'MainNavigation'
+    	'MainNavigation',
+    	'Responder',
     ],
     stores: [
     	'Visualizations',
-    	'MainNavigation'
+    	'MainNavigation',
+    	'Responders',
     ],
     
-
     icon: {
         '57': 'resources/icons/Icon.png',
         '72': 'resources/icons/Icon~ipad.png',
@@ -70,8 +117,9 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        // TODO: LOGIC FOR LOGIN!
         Ext.Viewport.add(Ext.create('Canary.view.Main'));
+        mCtrl = this.getController('Main');
+        
     },
 
     onUpdated: function() {

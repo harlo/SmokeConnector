@@ -23,10 +23,7 @@ Ext.define('Canary.view.Main', {
 				
 			},
 			{ xtype: 'canaryframe' },	// main view
-			{
-				title: 'MSG',	// notifications
-				badgeText: '3'
-			}
+			{ xtype: 'alertservice_frame' }	// chatter
 		]
 	}
 });

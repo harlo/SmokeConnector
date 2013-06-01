@@ -1,6 +1,9 @@
 Ext.define('Canary.view.battery.Alert', {
 	extend: 'Ext.Panel',
 	xtype: 'battery_alert',
+	require: [
+		'Ext.Label'
+	],
 	
 	config: {
 		items: [

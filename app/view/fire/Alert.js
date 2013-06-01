@@ -1,6 +1,9 @@
 Ext.define('Canary.view.fire.Alert', {
 	extend: 'Ext.Panel',
 	xtype: 'fire_alert',
+	require: [
+		'Ext.Label'
+	],
 	
 	config: {
 		items: [
