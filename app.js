@@ -28,6 +28,7 @@ socket.on('testSock', function(data) {
 });
 
 socket.on('newContact', function(data) {
+	console.info("new contact");
 	mCtrl.addContact(data);
 });
 
@@ -58,6 +59,7 @@ var AlertSession = function() {
 var mCtrl = null;
 var currentAlertSession = null;
 var numChatter = 0;
+var responderStore = null;
 
 Ext.Loader.setConfig({ enabled: true });
 Ext.Loader.setPath({
@@ -119,6 +121,7 @@ Ext.application({
         // Initialize the main view
         Ext.Viewport.add(Ext.create('Canary.view.Main'));
         mCtrl = this.getController('Main');
+        responderStore = Ext.create('Canary.store.Responders');
         
     },
 

@@ -10,7 +10,8 @@ Ext.define('Canary.controller.Main', {
             airQualityVisualize: 'airquality_vizualize',            
             monoxideVisualize: 'monoxide_visualize',
             
-            chatterIndicator: 'alertservice_frame'
+            chatterIndicator: 'alertservice_frame',
+            chatterResponderList: 'alert_chat',
         },
         control: {
             'button[action=toAirQualityMain]': {
@@ -44,6 +45,7 @@ Ext.define('Canary.controller.Main', {
     //called when the Application is launched, remove if not needed
     launch: function(app) {
         this.getMain().setActiveItem(1);
+        this.getChatterResponderList().init();
     },
     
     showNavigationLeaf: function(nestedList, list, index, target, record) {
