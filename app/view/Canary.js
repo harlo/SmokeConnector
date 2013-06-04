@@ -12,33 +12,68 @@ Ext.define('Canary.view.Canary', {
 		itemId: 'canaryframe_id',
 		items: [
 			{
-				title: 'main screen',
+				xtype: 'container',
+				layout: {
+					type: 'vbox',
+					align: 'stretch'
+				},
 				items: [
 					{
-						xtype: 'button',	// should be image
-						text: 'Air Quality',
-						action: 'toAirQualityMain',
+						xtype: 'container',
+						layout: {
+							type: 'vbox',
+							pack: 'center'
+						},
+						flex: 4,
+						items: [
+							{
+								xtype: 'button',
+								action: 'toAirQualityMain',
+								margin: 6,
+								flex:1,
+								cls: 'airQuality_indicator_canary',
+								style: "background-image:url('resources/images/img_home_good.png')"
+							},
+							{
+								xtype: 'label',
+								cls: 'airQuality_indicator_label_canary',
+								html: ' '
+							}
+						]
 					},
 					{
-						xtype: 'button',
-						text: 'Fire',
-						action: 'toFireMain',
-					},
-					{
-						xtype: 'button',
-						text: 'Battery',
-						action: 'toBatteryMain',
-					},
-					{
-						xtype: 'button',
-						text: 'Monoxide',
-						action: 'toMonoxideMain',
+						xtype: 'container',
+						flex: 1,
+						layout: {
+							type: 'hbox',
+							pack: 'center'
+						},
+						defaults: {
+							flex: 1,
+							margin: 6,
+							cls: 'other_indicator_canary'
+						},
+						items: [
+							{
+								xtype: 'button',
+								action: 'toFireMain',
+								style: "background-image:url('resources/images/ic_home_fire.png')"
+							},
+							{
+								xtype: 'button',
+								action: 'toBatteryMain',
+								style: "background-image:url('resources/images/ic_home_battery.png')"
+							},
+							{
+								xtype: 'button',
+								action: 'toMonoxideMain',
+								style: "background-image:url('resources/images/ic_home_monoxide.png')"
+							}
+						]
 					}
+					
 				]
 			}
 		]
-		/*
-		
-		*/
 	}
 });

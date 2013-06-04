@@ -21,6 +21,10 @@ Ext.define('Canary.model.Responder', {
 			{
 				name: 'zip',
 				type: 'string'
+			},
+			{
+				name: 'responderStatus',
+				type: 'int'
 			}
 		]
 	}

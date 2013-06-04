@@ -16,6 +16,7 @@
 //<debug>
 
 // STUFF FOR SOCKET CONNECTIONS
+/*
 var socket = io.connect('http://smokeconnector.nodejitsu.com:80');
 socket.on('connect', function() {
 	console.info('AYO TECHNOLOGY');
@@ -32,33 +33,78 @@ socket.on('newContact', function(data) {
 	mCtrl.addContact(data);
 });
 
-socket.on('newEvent', function(data) {
+socket.on('update', function(data) {
+	console.info("updating contact status");
+	mCtrl.updateContact(data);
+});
+
+socket.on('softAlert', function(data) {
 	mCtrl.receiveChatter(data);
-	if(data.status == "softAlert") {
-		if(currentAlertSession == null) {
-			currentAlertSession = new AlertSession();
-			mCtrl.initAlertSession(data);
-		} else {
-			console.info("PLS EXPUNGE CURRENT ALERT TO RESET");
-		}
-	} else if(data.status == "hardAlert") {
-		// show responders as being called
+	if(currentAlertSession == null) {
+		currentAlertSession = new AlertSession();
+		mCtrl.initAlertSession(data);
+		console.info(currentAlertSession);
+	} else {
+		console.info("PLS EXPUNGE CURRENT ALERT TO RESET");
 	}
 });
+
+socket.on('hardAlert', function(data) {
+	mCtrl.receiveChatter(data);
+});
+*/
+var availableRooms = [
+	{ text: 'Kitchen', value: 1 },
+	{ text: 'Living Room', value: 2 },
+	{ text: 'Dining Room', value: 3 },
+	{ text: 'Bedroom', value: 4 }
+];
 
 var AlertSession = function() {
 	var type = null;
 	var duration = 0;
+	var timeStarted = 0;
+	var respondersOnline;
 	
-	this.init = function(type) {
+	this.init = function(type, timeStarted) {
 		this.duration = 0;
 		this.type = type;
+		this.timeSarted = timeStarted;
+		this.respondersOnline = new Array();
+	};
+	
+	this.addResponder = function(responder) {
+		for(var i=0; i<currentAlertSession.respondersOnline.length; i++) {
+			var r = currentAlertSession.respondersOnline[i];
+			if(responder.phone_number == r.phone_number) {
+				return;
+			}
+		}
+		
+		currentAlertSession.respondersOnline.push(responder);
+	};
+	
+	this.getResponder = function(num) {
+		console.info("getting responder for " + num + ":");
+		console.info(currentAlertSession.respondersOnline);
+		
+		for(var i=0; i<currentAlertSession.respondersOnline.length; i++) {
+			
+			var responder = currentAlertSession.respondersOnline[i];
+			if(num == responder.phone_number) {
+				console.info("found responder");
+				return responder;
+			}
+		}
+		
+		return null;
 	};
 };
 
 var mCtrl = null;
 var currentAlertSession = null;
 var numChatter = 0;
+
 var responderStore = null;
 
 Ext.Loader.setConfig({ enabled: true });
@@ -78,8 +124,9 @@ Ext.application({
 
     views: [
         'Main', 'Wizard', 'Login', 'Canary',
-        'AirQuality', 'Monoxide', 'Battery',
-        'visualize.AirQuality', 'visualize.Monoxide',
+        'AirQuality', 'Monoxide', 'Battery', 'Fire',
+        'navigation.RoomNavigation',
+        'visualize.AirQuality', 'visualize.Monoxide', 'visualize.ProgressEmbed',
         'AlertService', 'AlertChat', 'battery.Alert', 'fire.Alert', 'monoxide.Alert'
     ],
     controllers: [

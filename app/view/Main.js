@@ -7,8 +7,10 @@ Ext.define('Canary.view.Main', {
 	],
 	
 	scrollable: true,
-	
 	config: {
+		layout: {
+			animation: { type: 'fade' }
+		},
 		tabBar: {
 			docked: 'top',
 			layout: {
@@ -16,12 +18,7 @@ Ext.define('Canary.view.Main', {
 			}
 		},	
 		items: [
-			{
-				iconCls: 'user',
-				//xtype: 'slidenavigationview'	// profile
-				xtype: 'main_navigation'
-				
-			},
+			{ xtype: 'main_navigation' },
 			{ xtype: 'canaryframe' },	// main view
 			{ xtype: 'alertservice_frame' }	// chatter
 		]

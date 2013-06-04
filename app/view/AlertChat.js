@@ -10,23 +10,14 @@ Ext.define('Canary.view.AlertChat', {
 	
 	config: {
 		listeners: {
-			init: 'init'
+			updateHtml: 'updateHtml',
+			changeStatus: 'changeStatus'
 		},
 		items: [
 			{
-				xtype: 'list',
+				xtype: 'panel',
 				id: 'chat_session',
-				config: {
-					itemTpl: [
-						'<p>{ phone_number }</p>'
-					].join(''),
-					//store: responderStore,
-					
-					data: [
-						{ phone_number: '12356' },
-						{ phone_number: '12356' },
-					]
-				}
+				html: ''
 			},
 			{
 				xtype: 'fieldset',
@@ -40,8 +31,28 @@ Ext.define('Canary.view.AlertChat', {
 		]
 	},
 	
-	init: function() {
-		console.info("FUCK YOU");
-		console.info(responderStore);
+	updateHtml: function(newHtml) {
+		var htmlHolder = this.getAt(0);
+		var oldHtml = htmlHolder.getHtml();
+		htmlHolder.setHtml(oldHtml + newHtml);
+
+	},
+	
+	changeStatus: function(contactObject, oldStatus) {
+		var htmlHolder = this.getAt(0);
+		var oldHtml = htmlHolder.getHtml();
+		
+		console.info("OLD:" + oldStatus + ", new: " + contactObject.status);
+		console.info(contactObject);
+		
+		var oldStuff = [
+			'<span class="status_' + contactObject.number + '">',
+	    	oldStatus + '</span>'
+	    ].join('');
+	    console.info("OLD HTML:" + oldStuff);
+	    var newHtml = oldHtml.replace(oldStuff, oldStuff.replace(oldStatus, contactObject.status));
+	    console.info("NEW:" + newHtml);
+	    
+		htmlHolder.setHtml(newHtml);
 	}
 });

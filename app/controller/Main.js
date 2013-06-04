@@ -26,6 +26,9 @@ Ext.define('Canary.controller.Main', {
             'button[action=toMonoxideMain]': {
             	tap: 'goToMonoxideMain',
             },
+            'button[action=toRoomSelector]': {
+            	tap: 'goToRoomSelector',
+            },
             
             'airquality_frame': {
             	activeitemchange: 'setVisualizationType',
@@ -37,6 +40,10 @@ Ext.define('Canary.controller.Main', {
             },
             'main_navigation': {
             	leafitemtap: 'showNavigationLeaf'
+            },
+            
+            'progress_embed': {
+            	initialize: 'initProgressEmbed'
             }
             
         }
@@ -45,7 +52,6 @@ Ext.define('Canary.controller.Main', {
     //called when the Application is launched, remove if not needed
     launch: function(app) {
         this.getMain().setActiveItem(1);
-        this.getChatterResponderList().init();
     },
     
     showNavigationLeaf: function(nestedList, list, index, target, record) {
@@ -65,6 +71,25 @@ Ext.define('Canary.controller.Main', {
     },
     goToMonoxideMain: function() {
     	this.getCanaryMain().push({ xtype: 'monoxide_frame' });
+    },
+    goToRoomSelector: function(e, event, eOpts) {
+    	var updateTo = e;
+    	var picker = Ext.create('Ext.Picker', {
+    		slots:[
+    			{
+					name: 'room_selector',
+					title: 'Choose a room',
+					data: availableRooms
+	    		}
+	    	],
+	    	listeners: {
+		    	change: function(e, value, eOpts) {
+					updateTo.setText(availableRooms[value.room_selector - 1].text);
+				}
+		    }
+    	});
+    	Ext.Viewport.add(picker);
+    	picker.show();
     },
     
     initTabWithFirstItem: function(newActiveItem, e, oldActiveItem, eOpts) {
@@ -89,34 +114,23 @@ Ext.define('Canary.controller.Main', {
     initAlertSession: function(alertObject) {
     	console.info(alertObject);
     	this.getMain().setActiveItem(2);
+    	
+    	Ext.Msg.alert(
+    		'Alert!',
+    		'Uh-oh! Your Smoke Connector has gone off at #CityCamp!!',
+    		Ext.emptyFn
+    	);
+    	
+    	currentAlertSession.init(1, alertObject.time);
     },
     receiveChatter: function(chatterObject) {
+    	console.info("chatter received? hard alert?");
     	console.info(chatterObject);
-    	
-    	numChatter++;
-    	this.getChatterIndicator().updateChatNum();
     },
     addContact: function(contactObject) {
+    	contact.info("adding contact");
     	console.info(contactObject);
     	
-    	/*
-    	{
-				name: 'name',
-				type: 'string'
-			},
-			{
-				name: 'avi',
-				type: 'string'
-			},
-			{
-				name: 'phone_number',
-				type: 'string'
-			},
-			{
-				name: 'zip',
-				type: 'string'
-			}
-			*/
 		var responderStore = Ext.getStore('responderStore_id');
 		// if num is not in responder store...
 		responderStore.add({
@@ -124,7 +138,40 @@ Ext.define('Canary.controller.Main', {
     		zip: contactObject.zip
     	});
     	console.info(responderStore.getCount());
-    	console.info(responderStore.getData());
+    },
+    updateContact: function(contactObject) {
+    	console.info("updating contact");
+    	console.info(contactObject);
     	
+    	if(contactObject.status == "calling") {	
+    		var responder = { phone_number: contactObject.number, status: "calling"};
+	    	currentAlertSession.addResponder(responder);
+	    	
+	    	var tpl = [
+	    		'<li><span class="alias_' + responder.number + '">',
+	    		responder.phone_number + '</span>   -   ',
+	    		'<span class="status_' + responder.phone_number + '">',
+	    		responder.status + '</span></li>'
+	    	].join('');
+	    	console.info(tpl);
+	    	// get chat_session instance, get html, append this, set html
+	    	this.getChatterResponderList().updateHtml(tpl);
+	    	
+	    } else {
+	    	var r = currentAlertSession.getResponder(contactObject.number);
+	    	var oldStatus = r.status;
+	    	
+	    	r.status = contactObject.status;
+	    	this.getChatterResponderList().changeStatus(contactObject, oldStatus);
+	    }
+    	
+    	numChatter++;
+    	this.getChatterIndicator().updateChatNum();
+    },
+    
+    initProgressEmbed: function(e, eOpts) {
+    	if(e.id == "battery_progress_embed") {
+    		e.init(8);		// init with whatever data we have for battery strength
+    	}
     }
 });

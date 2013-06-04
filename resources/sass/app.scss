@@ -1,11 +1,31 @@
 // The following two lines import the default Sencha Touch theme. If you are building
 // a new theme, remove them and the add your own CSS on top of the base CSS (which
 // is already included in your app.json file).
+@import 'sencha-touch/base';
+@import 'sencha-touch/base/all';
 @import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
-// Custom code goes here..
+$base-color: #efeeed;
+$active-color: #ffd400;
+$base-gradient: 'glossy';
 
+.airQuality_indicator_canary {
+	background-color: #efeefd !important;
+	border:none;
+	background-repeat: no-repeat;
+	background-position: center;
+}
 
-// Examples of using the icon mixin:
-// @include icon('user');
+.airQuality_indicator_label_canary {
+	font-size: 1.2em;
+}
+
+.other_indicator_canary {
+	background-color:#efeeed !important;
+	border:1px solid #231f20 !important;
+	border-top-color:#231f20 !important;
+	color:#231f20 !important;
+	background-repeat: no-repeat;
+	background-position: center;
+}

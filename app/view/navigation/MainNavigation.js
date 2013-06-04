@@ -6,6 +6,7 @@ Ext.define('Canary.view.navigation.MainNavigation', {
 	],
 	
 	config: {
+		iconCls: 'user',
 		store: 'MainNavigation',
 		displayField: 'label',
 		detailCard: { html: '' }

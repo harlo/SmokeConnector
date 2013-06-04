@@ -5,7 +5,8 @@ Ext.define('Canary.view.visualize.AirQuality', {
 	config: {
 		listeners: {
 			init: 'init'
-		}
+		},
+		flex: 1
 	},
 	
 	init: function(opts) {
@@ -19,20 +20,6 @@ Ext.define('Canary.view.visualize.AirQuality', {
 			),
 			data: opts
 		});
-		/*
-		var vizMap = Ext.create('Ext.Map', {
-			useCurrentLocation: true,
-			config: {
-				mapOptions: {
-					disableDefaultUI: true,
-					zoom: 13,
-					mapTypeControl: false,
-					streetViewControl: false,
-					scaleControl: true
-				}
-			}
-		});
-		*/
 		
 		this.add([vizPanel]);
 	}

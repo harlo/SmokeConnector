@@ -10,8 +10,7 @@ Ext.define('Canary.view.fire.Alert', {
 			{
 				xtype: 'label',
 				html: [
-					'<h1>Smoke Detected</h1>',
-					'<p>Duration - 0:39</p>'
+					'<h1>Smoke Detected!</h1>',
 				].join('')
 			},
 			{
