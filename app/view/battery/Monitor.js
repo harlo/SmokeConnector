@@ -3,38 +3,21 @@ Ext.define('Canary.view.battery.Monitor', {
 	xtype: 'battery_monitor',
 	require: [
 		'Canary.view.visualize.ProgressEmbed',
+		'Canary.view.navigation.RoomNavigation',
 		'Ext.Img'
 	],
 	config: {
 		items: [
+			{ xtype: 'room_navigation' },
 			{
 				xtype:  'container',
 				layout: {
 					type: 'hbox'
 				},
 				margin: 10,
-				items: [
-					{
-						xtype: 'label',
-						html: '<h2>Home</h2>',
-						flex: 1
-					},
-					{
-						xtype: 'button',
-						text: 'Kitchen',
-						action: 'toRoomSelector',
-						id: 'battery_room_selector',
-						flex: 3
-					}
-				]
-			},
-			
-			{
-				xtype:  'container',
-				layout: {
-					type: 'hbox'
+				defaults: {
+					styleHtmlContent: true
 				},
-				margin: 10,
 				items: [
 					{
 						xtype: 'image',

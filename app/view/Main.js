@@ -6,11 +6,12 @@ Ext.define('Canary.view.Main', {
 		'Canary.view.navigation.MainNavigation'
 	],
 	
-	scrollable: true,
+	
 	config: {
 		layout: {
 			animation: { type: 'fade' }
 		},
+		
 		tabBar: {
 			docked: 'top',
 			layout: {

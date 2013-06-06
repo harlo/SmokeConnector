@@ -10,6 +10,7 @@ Ext.define('Canary.view.Canary', {
 	config: {
 		title: 'Canary',
 		itemId: 'canaryframe_id',
+		
 		items: [
 			{
 				xtype: 'container',

@@ -12,6 +12,8 @@ Ext.define('Canary.controller.Main', {
             
             chatterIndicator: 'alertservice_frame',
             chatterResponderList: 'alert_chat',
+            
+            
         },
         control: {
             'button[action=toAirQualityMain]': {
@@ -79,12 +81,12 @@ Ext.define('Canary.controller.Main', {
     			{
 					name: 'room_selector',
 					title: 'Choose a room',
-					data: availableRooms
+					data: Canary.app.availableRooms
 	    		}
 	    	],
 	    	listeners: {
 		    	change: function(e, value, eOpts) {
-					updateTo.setText(availableRooms[value.room_selector - 1].text);
+					updateTo.setText(Canary.app.availableRooms[value.room_selector - 1].text);
 				}
 		    }
     	});
@@ -95,6 +97,9 @@ Ext.define('Canary.controller.Main', {
     initTabWithFirstItem: function(newActiveItem, e, oldActiveItem, eOpts) {
     	var newObj = Ext.getCmp(newActiveItem.innerItems[0].initialConfig.items[0].id);
     	if(newObj != undefined) {
+    		console.info("VIZ FOR");
+    		console.info(newActiveItem);
+    		
 			newObj.fireEvent('init', {
 				"vizType" : newActiveItem.innerItems[0].title
 			});
@@ -104,6 +109,9 @@ Ext.define('Canary.controller.Main', {
     	if(newActiveItem != 0) {
 			var newObj = Ext.getCmp(newActiveItem.initialConfig.items[0].id);
 			if(newObj != undefined) {
+				console.info("VIZ FOR");
+	    		console.info(newActiveItem);
+	    		
 				newObj.fireEvent('init', {
 					"vizType" : newActiveItem.title
 				});

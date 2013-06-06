@@ -1,11 +1,11 @@
 Ext.define('Canary.view.Battery', {
-	extend: 'Ext.Container',
+	extend: 'Ext.Panel',
 	xtype: 'battery_frame',
 	requires: [
 		'Canary.view.battery.Monitor',
 		'Canary.view.battery.Reminder'
 	],
-	
+	scrollable: true,
 	config: {
 		layout: {
 			type: 'vbox',

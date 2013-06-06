@@ -53,59 +53,6 @@ socket.on('hardAlert', function(data) {
 	mCtrl.receiveChatter(data);
 });
 */
-var availableRooms = [
-	{ text: 'Kitchen', value: 1 },
-	{ text: 'Living Room', value: 2 },
-	{ text: 'Dining Room', value: 3 },
-	{ text: 'Bedroom', value: 4 }
-];
-
-var AlertSession = function() {
-	var type = null;
-	var duration = 0;
-	var timeStarted = 0;
-	var respondersOnline;
-	
-	this.init = function(type, timeStarted) {
-		this.duration = 0;
-		this.type = type;
-		this.timeSarted = timeStarted;
-		this.respondersOnline = new Array();
-	};
-	
-	this.addResponder = function(responder) {
-		for(var i=0; i<currentAlertSession.respondersOnline.length; i++) {
-			var r = currentAlertSession.respondersOnline[i];
-			if(responder.phone_number == r.phone_number) {
-				return;
-			}
-		}
-		
-		currentAlertSession.respondersOnline.push(responder);
-	};
-	
-	this.getResponder = function(num) {
-		console.info("getting responder for " + num + ":");
-		console.info(currentAlertSession.respondersOnline);
-		
-		for(var i=0; i<currentAlertSession.respondersOnline.length; i++) {
-			
-			var responder = currentAlertSession.respondersOnline[i];
-			if(num == responder.phone_number) {
-				console.info("found responder");
-				return responder;
-			}
-		}
-		
-		return null;
-	};
-};
-
-var mCtrl = null;
-var currentAlertSession = null;
-var numChatter = 0;
-
-var responderStore = null;
 
 Ext.Loader.setConfig({ enabled: true });
 Ext.Loader.setPath({
@@ -160,6 +107,59 @@ Ext.application({
         '1536x2008': 'resources/startup/1536x2008.png',
         '1496x2048': 'resources/startup/1496x2048.png'
     },
+    
+    availableRooms: [
+			{ text: 'Kitchen', value: 1 },
+			{ text: 'Living Room', value: 2 },
+			{ text: 'Dining Room', value: 3 },
+			{ text: 'Bedroom', value: 4 }
+	],
+	
+	AlertSession: function() {
+		var type = null;
+		var duration = 0;
+		var timeStarted = 0;
+		var respondersOnline;
+
+		this.init = function(type, timeStarted) {
+			this.duration = 0;
+			this.type = type;
+			this.timeSarted = timeStarted;
+			this.respondersOnline = new Array();
+		};
+
+		this.addResponder = function(responder) {
+			for(var i=0; i<currentAlertSession.respondersOnline.length; i++) {
+				var r = currentAlertSession.respondersOnline[i];
+				if(responder.phone_number == r.phone_number) {
+					return;
+				}
+			}
+	
+			currentAlertSession.respondersOnline.push(responder);
+		};
+
+		this.getResponder = function(num) {
+			console.info("getting responder for " + num + ":");
+			console.info(currentAlertSession.respondersOnline);
+	
+			for(var i=0; i<currentAlertSession.respondersOnline.length; i++) {
+		
+				var responder = currentAlertSession.respondersOnline[i];
+				if(num == responder.phone_number) {
+					console.info("found responder");
+					return responder;
+				}
+			}
+	
+			return null;
+		};
+	},
+	
+	mCtrl: null,
+	currentAlertSession: null,
+	numChatter: 0,
+	responderStore: null,
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
@@ -167,7 +167,7 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('Canary.view.Main'));
-        mCtrl = this.getController('Main');
+        this.mCtrl = this.getController('Main');
         responderStore = Ext.create('Canary.store.Responders');
         
     },
@@ -182,5 +182,14 @@ Ext.application({
                 }
             }
         );
+    },
+    
+    canaryObjs: {
+    	availableRooms: [
+			{ text: 'Kitchen', value: 1 },
+			{ text: 'Living Room', value: 2 },
+			{ text: 'Dining Room', value: 3 },
+			{ text: 'Bedroom', value: 4 }
+		]
     }
 });
