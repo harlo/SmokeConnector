@@ -2,7 +2,8 @@ Ext.define('Canary.view.battery.Reminder', {
 	extend: 'Ext.Panel',
 	xtype: 'battery_reminder',
 	require: [
-		'Ext.field.DatePicker'
+		'Ext.field.DatePicker',
+		'Ext.form.Fieldset'
 	],
 	
 	config: {

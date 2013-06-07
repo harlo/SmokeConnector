@@ -59,7 +59,19 @@ Ext.define('Canary.controller.Main', {
     showNavigationLeaf: function(nestedList, list, index, target, record) {
     	console.info(record);
     	var detailCard = nestedList.getDetailCard();
-    	detailCard.setHtml(record.get('label') + " Page");
+    	var html = "";
+    	if(record.get('label') == 'Profile') {
+    		html = [
+    			'<img src="" /> <input type="text" value="Chirpy Canary" />',
+    			'<input type="text" value="info@canarydetector.com" />'
+    		].join('');
+    	}
+    	
+    	if(record.get('label') == 'About') {
+    	
+    	}
+    	
+    	detailCard.setHtml(html);
     },
     
     goToAirQualityMain: function(button, e) {

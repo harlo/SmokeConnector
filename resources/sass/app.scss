@@ -6,9 +6,18 @@
 @import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
-$base-color: #efeeed;
-$active-color: #ffd400;
-$base-gradient: 'glossy';
+.x-button-label {
+	font-size:2em;
+}
+
+table.whole_screen {
+	width:100%;
+}
+
+h1.tab_h1 {
+	font-size:1.4em;
+	margin-bottom:10px;
+}
 
 .airQuality_indicator_canary {
 	background-color: #efeefd !important;
