@@ -8,7 +8,7 @@ Ext.define('Canary.view.Canary', {
 	],
 	
 	config: {
-		title: 'Canary',
+		title: 'canary',
 		itemId: 'canaryframe_id',
 		
 		items: [
@@ -33,12 +33,12 @@ Ext.define('Canary.view.Canary', {
 								margin: 6,
 								flex:1,
 								cls: 'airQuality_indicator_canary',
-								style: "background-image:url('resources/images/img_home_good.png')"
+								style: "background-image:url('resources/images/img_home2_good.png')"
 							},
 							{
 								xtype: 'label',
 								cls: 'airQuality_indicator_label_canary',
-								html: ' '
+								html: ' <center><p><b>Air Quality Index = 42</p><p><b>GOOD</p></center>'
 							}
 						]
 					},
@@ -57,7 +57,7 @@ Ext.define('Canary.view.Canary', {
 						items: [
 							{
 								xtype: 'button',
-								action: 'toFireMain',
+								action: 'toFireMain',								
 								style: "background-image:url('resources/images/ic_home_fire.png')"
 							},
 							{
