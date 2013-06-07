@@ -8,7 +8,7 @@ Ext.define('Canary.store.MainNavigation', {
 				label: 'Profile',
 				leaf: true
 			},
-			{ label: 'Home' },
+			{ label: 'House' },
 			{ label: 'Neighborhood' },
 			{ label: 'Friends' },
 			{

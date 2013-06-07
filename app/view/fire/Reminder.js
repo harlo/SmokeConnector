@@ -1,6 +1,6 @@
 Ext.define('Canary.view.battery.Reminder', {
 	extend: 'Ext.Panel',
-	xtype: 'battery_reminder',
+	xtype: 'fire_reminder',
 	require: [
 		'Ext.field.DatePicker'
 	],
@@ -19,7 +19,7 @@ Ext.define('Canary.view.battery.Reminder', {
 				items: [
 					{
 						xtype: 'label',
-						html: '<p>You REPLACED your battery 4 months ago.  We\'ll ship you a pair and send you a reminder to replace it in 8 months.</p><p style="margin-top:10px;">Next Reminder:</p>'
+						html: '<p>Your Canary detector has gone off 5 times. It had 4 false alarms and 1 serious incident. It is currently fully functional.</p><p style="margin-top:10px;">Next Reminder:</p>'
 					},
 					{
 						xtype: 'datepickerfield',
@@ -33,7 +33,7 @@ Ext.define('Canary.view.battery.Reminder', {
 					},
 					{
 						xtype: 'label',
-						html: '<p>You INSTALLED your Canary Smoke Detector 1 year and 4 months ago.  We\'ll send you a reminder in 3 years and 8 months to replace it.</p><p style="margin-top:10px;">Next Reminder:</p>'
+						html: '<p>You installed your Canary Smoke Detector 1 year and 4 months ago.  We\'ll send you a reminder in 3 years and 8 months to replace it.</p><p style="margin-top:10px;">Next Reminder:</p>'
 					},
 					{
 						xtype: 'datepickerfield',
